@@ -45,7 +45,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2024-08-11T01:16:34.000Z">
-<meta property="article:modified_time" content="2024-08-11T13:01:37.731Z">
+<meta property="article:modified_time" content="2024-10-25T13:18:59.861Z">
 <meta property="article:author" content="xiaodong">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png">
@@ -2111,7 +2111,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     root: '/',
     debug: "env",
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1723385829507),
+    lastupdate: new Date(1729862884694),
     cdn: {
       izitoast_css: 'https://cdn.bootcdn.net/ajax/libs/izitoast/1.4.0/css/iziToast.min.css',
       izitoast_js: 'https://cdn.bootcdn.net/ajax/libs/izitoast/1.4.0/js/iziToast.min.js',
@@ -2542,14 +2542,18 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li><a target="_blank" rel="noopener" href="https://www.biostars.org/p/3423/#3426">Some detailed concepts about forward and reverse strand</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ht411q7Wh/?from=search&amp;seid=9937739623014885354&amp;vd_source=335696dd167f6dfdaccc38604d80afb1">Illumina sequencing video</a> <br><br>我觉得以上这几篇文章看完，绝对会让你对双端测序和链特异性测序有更深的理解。看完下边简介再看链接，我觉得差不多就够用了。如果你觉得我写的很low，那么我强烈建议你去看看这四个链接，绝对对你有用。</li>
 </ol>
-<h1 id="fastq1-和-fastq2-文件中的reads的差别是什么？"><a href="#fastq1-和-fastq2-文件中的reads的差别是什么？" class="headerlink" title="fastq1 和 fastq2 文件中的reads的差别是什么？"></a>fastq1 和 fastq2 文件中的reads的差别是什么？</h1><p>  他们是”反向互补序列”， 注意我加了个引号。<br>  </p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prefetch  SRR21613907 -O /home/xiaodong/Desktop/homework/bioinforamtics/lab_2/paired</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h2 id="fastq1-和-fastq2-文件中的reads的差别是什么？"><a href="#fastq1-和-fastq2-文件中的reads的差别是什么？" class="headerlink" title="fastq1 和 fastq2 文件中的reads的差别是什么？"></a>fastq1 和 fastq2 文件中的reads的差别是什么？</h2><p>  他们是”反向互补序列”， 注意我加了个引号。<br>  </p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prefetch  SRR21613907 -O /home/xiaodong/Desktop/homework/bioinforamtics/lab_2/paired</span><br></pre></td></tr></tbody></table></figure><p></p>
 <h2 id="reads1的反向互补序列和reads2比对"><a href="#reads1的反向互补序列和reads2比对" class="headerlink" title="reads1的反向互补序列和reads2比对"></a>reads1的反向互补序列和reads2比对</h2><p>  我找了之前下载的一个RNAseq数据，并从中选择fastq1和fastq2文件中的第12对reads（因为我看他们的质量值几乎都是FFFFF）。随后将第1条reads取反向互补序列，如果使用<a target="_blank" rel="noopener" href="https://www.ebi.ac.uk/jdispatcher/psa/emboss_needle?stype=dna&amp;matrix=EDNAFULL&amp;gapopen=50">EBI的双序列比对</a>进行比对，会发现结果中两条序列中间部分完全匹配。<br>  所以双端测序：</p>
 <ol>
 <li>它是分别从一条序列的两端进行测序的，这是毫无疑问的。<br></li>
-<li>reads1和reads2序列是位于dna的两条链上的。只有位于两条链上，比对之后才会出现两条序列中间部分完全匹配上的情况。 <br><br>  EMBOSS_001是reads2  EMBOSS_002是reads1的反向互补序列。结果如下图。<br>  <img src="/images/read12_align.png" class="lazyload" data-srcset="/images/read12_align.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="alignmen_result"><br>  也就是说：<br>   <img src="/images/read12_what.png" class="lazyload" data-srcset="/images/read12_what.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="reads1_reads_relationship"><br>   到这里，如果想进一步了解双端测序，建议读第一个链接，自己再去搜索一些，我觉得就够了。</li>
+<li>reads1和reads2序列是位于dna的两条链上的。只有位于两条链上，比对之后才会出现两条序列中间部分完全匹配上的情况。 <br><br>  EMBOSS_001是reads2  EMBOSS_002是reads1的反向互补序列。结果如下图。<br>  <img src="/images/fastq1_2_12.png" class="lazyload" data-srcset="/images/fastq1_2_12.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="alignmen_result"><br>  也就是说：<br>   <img src="/images/stran_1_2.png" class="lazyload" data-srcset="/images/stran_1_2.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="reads1_reads_relationship"><br>   到这里，如果想进一步了解双端测序，建议读第一个链接，自己再去搜索一些，我觉得就够了。</li>
 </ol>
-<h1 id="对于链特异性测序和非特异性测序"><a href="#对于链特异性测序和非特异性测序" class="headerlink" title="对于链特异性测序和非特异性测序"></a>对于链特异性测序和非特异性测序</h1><p>  特异性测序：转录组测基因表达量时，建库用的是mRNA序列，一般需要pcr扩增一下，增加一下样本含量。通过一些barcode标记等其他的方法来记录dna哪条链是“mRNA”哪条链是互补序列。之后可以通过降解mRNA的互补序列，从而留下mRNA链。然后双端测序，可以看看链接4的视频，最终一系列操作得到了fastq1和fastq2两个文件。特异性测序区分了dna的两条链。reads  map的时候通过软件参数的设置就可以确定这个reads来自哪个基因。</p>
-<p>  非特异性测序，测序结果测得的reads表示的是mRNA及其互补序列的reads，如果同一段dna序列两条链上都有基因或者其他一些情况可能会出现一些问题。也就是说，非特异性测序并不区分dna两条链。现在几乎所有都是链特异性测序。</p>
+<h2 id="对于链特异性测序和非特异性测序"><a href="#对于链特异性测序和非特异性测序" class="headerlink" title="对于链特异性测序和非特异性测序"></a>对于链特异性测序和非特异性测序</h2><ol>
+<li>特异性测序：转录组测基因表达量时，建库用的是mRNA序列，一般需要pcr扩增一下，增加一下样本含量。之后可以通过降解mRNA的互补序列，从而留下mRNA链。然后双端测序，可以看看链接4的视频，最终一系列操作得到了fastq1&lt;和fastq2两个文件。</li>
+<li>通过一些barcode标记等其他的方法来记录dna的哪一条链和“mRNA”序列相同（除了T碱基为U外），哪一条链是“mRNA”的反向互补序列。这样，对于同一段dna区域两条链都有基因的情况，我们就可以区分这两个基因表达量的差异。虽然我觉得现在很多人算基因表达量的时候也不会关注这个，软件参数设置可以参考第二个链接。</li>
+<li>归根结底来说，问题的根本在于让软件知道你的fastq1是mRNA序列还是mRNA的反向互补序列。由于建库的方式不同，有的fastq1是mRNA序列有的则相反。特异性测序区分了dna的两条链。reads  map的时候通过软件参数的设置就可以确定这个reads来自哪个基因。</li>
+</ol>
+<p>  非特异性测序，测序结果测得的reads表示的是mRNA及其互补序列的reads，如果同一段dna序列两条链上都有基因或者其他一些情况可能会出现一些问题。也就是说，非特异性测序并不区分dna两条链。现在几乎所有都是链特异性测序。猜测可能是基因组组装时代的产物，因为基因组组装你不需要区分两条链，可能后来有人想到组装的reads也可以用于基因表达量分析，于是单端reads用于转录组分析应运而生。后来有人意识到同一段dna区域有两条链的情况，于是链特异性测序应运而生。</p>
 <p>以上仅代表个人观点，不一定对。</p>
 
   </div>
@@ -2575,10 +2579,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-08-11T21:01:37+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-10-25T21:18:59+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2024年8月11日</p>
+    <p>更新于：2024年10月25日</p>
   </a>
 </div>
 
@@ -2724,7 +2728,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
   <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#reads1%E7%9A%84%E5%8F%8D%E5%90%91%E4%BA%92%E8%A1%A5%E5%BA%8F%E5%88%97%E5%92%8Creads2%E6%AF%94%E5%AF%B9"><span class="toc-text">reads1的反向互补序列和reads2比对</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#fastq1-%E5%92%8C-fastq2-%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84reads%E7%9A%84%E5%B7%AE%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">fastq1 和 fastq2 文件中的reads的差别是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#reads1%E7%9A%84%E5%8F%8D%E5%90%91%E4%BA%92%E8%A1%A5%E5%BA%8F%E5%88%97%E5%92%8Creads2%E6%AF%94%E5%AF%B9"><span class="toc-text">reads1的反向互补序列和reads2比对</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E4%BA%8E%E9%93%BE%E7%89%B9%E5%BC%82%E6%80%A7%E6%B5%8B%E5%BA%8F%E5%92%8C%E9%9D%9E%E7%89%B9%E5%BC%82%E6%80%A7%E6%B5%8B%E5%BA%8F"><span class="toc-text">对于链特异性测序和非特异性测序</span></a></li></ol>
   </div>
 </section>
 
@@ -3208,7 +3212,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"xiaodli","url":"https://xiaodli.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"xiaodong","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://xiaodli.github.io/","sameAs":["https://github.com/volantis-x"],"description":"blog of xiaodli"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://xiaodli.github.io/","name":"xiaodli"}},{"@type":"ListItem","position":2,"item":{"@id":"https://xiaodli.github.io/categories/Bioinformatcis/","name":"Bioinformatcis"}},{"@type":"ListItem","position":3,"item":{"@id":"https://xiaodli.github.io/2024/08/11/paired-end-sequencing/","name":"Paired end sequencing and stranded specific sequencing"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"xiaodli","url":"https://xiaodli.github.io/","keywords":null,"description":"blog of xiaodli","author":{"@type":"Person","name":"xiaodong","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://xiaodli.github.io/","description":"blog of xiaodli"},"publisher":{"@type":"Organization","name":"xiaodli","url":"https://xiaodli.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://xiaodli.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"Paired end sequencing and stranded specific sequencing","description":"blog of xiaodli","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://xiaodli.github.io/2024/08/11/paired-end-sequencing/"},"author":{"@type":"Person","name":"xiaodong","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://xiaodli.github.io/"},"publisher":{"@type":"Organization","name":"xiaodli","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://xiaodli.github.io/2024/08/11/paired-end-sequencing/","wordCount":0,"datePublished":"2024-08-11T01:16:34.000Z","dateModified":"2024-08-11T13:01:37.731Z","articleSection":"Bioinformatcis","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"xiaodli","url":"https://xiaodli.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"xiaodong","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://xiaodli.github.io/","sameAs":["https://github.com/volantis-x"],"description":"blog of xiaodli"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://xiaodli.github.io/","name":"xiaodli"}},{"@type":"ListItem","position":2,"item":{"@id":"https://xiaodli.github.io/categories/Bioinformatcis/","name":"Bioinformatcis"}},{"@type":"ListItem","position":3,"item":{"@id":"https://xiaodli.github.io/2024/08/11/paired-end-sequencing/","name":"Paired end sequencing and stranded specific sequencing"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"xiaodli","url":"https://xiaodli.github.io/","keywords":null,"description":"blog of xiaodli","author":{"@type":"Person","name":"xiaodong","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://xiaodli.github.io/","description":"blog of xiaodli"},"publisher":{"@type":"Organization","name":"xiaodli","url":"https://xiaodli.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://xiaodli.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"Paired end sequencing and stranded specific sequencing","description":"blog of xiaodli","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://xiaodli.github.io/2024/08/11/paired-end-sequencing/"},"author":{"@type":"Person","name":"xiaodong","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://xiaodli.github.io/"},"publisher":{"@type":"Organization","name":"xiaodli","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://xiaodli.github.io/2024/08/11/paired-end-sequencing/","wordCount":0,"datePublished":"2024-08-11T01:16:34.000Z","dateModified":"2024-10-25T13:18:59.861Z","articleSection":"Bioinformatcis","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
